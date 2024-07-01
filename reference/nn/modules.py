@@ -59,3 +59,41 @@ class Dense(Module):
     b.grad = np.sum(grad, axis=0) / batch
     dx = np.matmul(grad, W.value)
     return dx
+
+class SoftmaxCrossEntropy(Module):
+    """Softmax Cross Entropy fused output activation."""
+    def __init__(self):
+      super().__init__()
+
+    def forward(self, logits):
+      """Forward propagation through Softmax.
+
+      Parameters
+      ----------
+      logits : np.array
+        Softmax logits. Should have shape (batch, num_classes).
+
+      Returns
+      -------
+      np.array
+        Predictions for this batch. Should have shape (batch, num_classes).
+      """
+      exp_logits = np.exp(logits - np.max(logits, axis=1, keepdims=True))
+      self.y_pred = np.divide(
+          exp_logits, np.sum(exp_logits, axis=1, keepdims=True))
+      return self.y_pred
+
+    def backward(self, labels):
+      """Backward propagation of the Softmax activation.
+
+      Parameters
+      ----------
+      labels : np.array
+        One-hot encoded labels. Should have shape (batch, num_classes).
+
+      Returns
+      -------
+      np.array
+        Initial backprop gradients.
+      """
+      return self.y_pred - labels
