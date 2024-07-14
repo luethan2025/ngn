@@ -36,3 +36,26 @@ class Dense(Module):
     self.x = x
     W, b = self.trainable_parameters
     return np.tensordot(W.value, x, axes=[1, 1]).T + b.value
+
+class SoftmaxCrossEntropy(Module):
+  """Softmax Cross Entropy fused output activation."""
+  def __init__(self):
+    super().__init__()
+
+  def forward(self, logits):
+    """Forward propagation through Softmax.
+
+    Parameters
+    ----------
+    logits : np.array
+      Softmax logits. Should have shape (batch, num_classes).
+
+    Returns
+    -------
+    np.array
+      Predictions for this batch. Should have shape (batch, num_classes).
+    """
+    exp_logits = np.exp(logits - np.max(logits, axis=1, keepdims=True))
+    self.y_pred = np.divide(
+        exp_logits, np.sum(exp_logits, axis=1, keepdims=True))
+    return self.y_pred
