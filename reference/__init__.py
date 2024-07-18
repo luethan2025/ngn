@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 from .dataset import Dataset
-from .model import Sequential
+from .model import ReferenceNetwork
 
 __all__ = [
   "Dataset",
-  "Sequential"
+  "ReferenceNetwork"
 ]
