@@ -51,11 +51,14 @@ class Model:
     Step size.
   loss : Module
     Final output activation and loss function.
+  silence : boolean
+    Silence tqdm.
   """
-  def __init__(self, modules, h, loss=None):
+  def __init__(self, modules, h, loss=None, silence=True):
     self.modules = modules
     self.h = h
     self.loss = loss()
+    self.silence = silence
 
   def forward(self, X):
     """Model forward pass.
@@ -147,7 +150,8 @@ class Model:
     accuracy = np.zeros(shape=dataset.size)
     with tqdm(
       total=dataset.size,
-      postfix={"loss": 0, "accuracy": 0}) as pbar:
+      postfix={"loss": 0, "accuracy": 0},
+      disable=self.silence) as pbar:
       for i, batch in enumerate(dataset):
         X, y = batch
         pred = self.forward(X)

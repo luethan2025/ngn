@@ -49,10 +49,13 @@ class ReferenceModel:
     List of modules; used to grab trainable weights.
   loss : Module
     Final output activation and loss function.
+  silence : boolean
+    Silence tqdm.
   """
-  def __init__(self, modules, loss=None):
+  def __init__(self, modules, loss=None, silence=True):
     self.modules = modules
     self.loss = loss()
+    self.silence = silence
 
   def forward(self, X):
     """Model forward pass.
@@ -101,7 +104,8 @@ class ReferenceModel:
     accuracy = np.zeros(shape=dataset.size)
     with tqdm(
       total=dataset.size,
-      postfix={"loss": 0, "accuracy": 0}) as pbar:
+      postfix={"loss": 0, "accuracy": 0},
+      disable=self.silence) as pbar:
       for i, batch in enumerate(dataset):
         X, y = batch
         pred = self.forward(X)
