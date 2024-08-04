@@ -40,7 +40,7 @@ def categorical_accuracy(pred, labels):
   """
   return np.mean(np.argmax(pred, axis=1) == np.argmax(labels, axis=1))
 
-class ReferenceNetwork:
+class ReferenceModel:
   """Reference sequential neural network model.
 
   Parameters
