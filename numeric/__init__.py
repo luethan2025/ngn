@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 from .dataset import Dataset
-from .model import NumericalGradientNetwork
+from .model import Model
 
 __all__ = [
   "Dataset",
-  "NumericalGradientNetwork"
+  "Model"
 ]
