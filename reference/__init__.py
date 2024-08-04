@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 from .dataset import Dataset
-from .model import ReferenceModel
+from .model import Model
 
 __all__ = [
   "Dataset",
-  "ReferenceModel"
+  "Model"
 ]
