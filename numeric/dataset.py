@@ -13,14 +13,19 @@ class Dataset:
     Output one-hot labels. Should have shape (dataset size, classes).
   batch : int
     Number samples used in one forward and backward pass (defaults to 32).
+  seed : int
+    NumPy random seed used in benchmarking tests.
   """
-  def __init__(self, X, y, batch=32):
+  def __init__(self, X, y, batch=32, seed=None):
     self.X = X
     self.y = y
     self.batch = batch
     self.size = X.shape[0] // batch
+    self.seed = seed
 
   def __iter__(self):
+    if self.seed is not None:
+      np.random.seed(self.seed)
     self.idx = 0
     self.indices = np.random.permutation(
       self.X.shape[0]

@@ -19,9 +19,13 @@ class Dense(Module):
     Weight initialization method (defaults to Xavier).
   bias_initializer : BiasInitializer
     bias initialization method (defaults to Zero).
+  seed : int
+    NumPy random seed used in benchmarking tests.
   """
   def __init__(
-      self, in_dim, out_dim, weight_initializer=Xavier, bias_initializer=Zero):
+      self, in_dim, out_dim, weight_initializer=Xavier, bias_initializer=Zero, seed=None):
+    if seed is not None:
+      np.random.seed(seed)
     W = weight_initializer(in_dim, out_dim).init_params()
     b = bias_initializer(out_dim).init_params()
     self.trainable_parameters = [Parameter(W), Parameter(b)]
