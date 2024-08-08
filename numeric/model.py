@@ -51,14 +51,11 @@ class Model:
     Step size.
   loss : Module
     Final output activation and loss function.
-  silence : boolean
-    Silence tqdm.
   """
-  def __init__(self, modules, h, loss=None, silence=True):
+  def __init__(self, modules, h, loss=None):
     self.modules = modules
     self.h = h
     self.loss = loss()
-    self.silence = silence
 
   def forward(self, X):
     """Model forward pass.
@@ -132,13 +129,15 @@ class Model:
     for idx in range(len(self.modules)):
       self.compute_grad(X, idx, y)
 
-  def train(self, dataset):
+  def train(self, dataset, silence=True):
     """Fit model on dataset for a single epoch.
 
     Parameters
     ----------
     dataset : Dataset
       Training dataset with batches already split.
+    silence : boolean
+      Silence tqdm (defaults to True).
 
     Returns
     -------
@@ -151,7 +150,7 @@ class Model:
     with tqdm(
       total=dataset.size,
       postfix={"loss": 0, "accuracy": 0},
-      disable=self.silence) as pbar:
+      disable=silence) as pbar:
       for i, batch in enumerate(dataset):
         X, y = batch
         pred = self.forward(X)
