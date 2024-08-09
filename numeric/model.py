@@ -62,11 +62,7 @@ class Model:
     self.params = []
     for module in modules:
       self.params += module.trainable_parameters
-
-    if isinstance(optim, SGD):
-      self.optim = optim
-    else:
-      self.optim = optim()
+    self.optim = optim()
 
   def forward(self, X):
     """Model forward pass.
