@@ -3,6 +3,8 @@
 import numpy as np
 from tqdm import tqdm
 
+from .optim import SGD
+
 def categorical_cross_entropy(pred, labels, epsilon=1e-10):
   """Cross entropy loss function.
 
@@ -49,10 +51,17 @@ class Model:
     List of modules; used to grab trainable weights.
   loss : Module
     Final output activation and loss function.
+  optim : SGD
+    Optimization policy (defaults to SGD).
   """
-  def __init__(self, modules, loss=None):
+  def __init__(self, modules, loss=None, optim=SGD):
     self.modules = modules
     self.loss = loss()
+
+    self.params = []
+    for module in modules:
+      self.params += module.trainable_parameters
+    self.optim = optim()
 
   def forward(self, X):
     """Model forward pass.
@@ -109,6 +118,7 @@ class Model:
         X, y = batch
         pred = self.forward(X)
         self.backward(y)
+        self.optim.apply_gradients(self.params)
 
         losses[i] = categorical_cross_entropy(pred, y)
         accuracy[i] = categorical_accuracy(pred, y)
