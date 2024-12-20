@@ -22,12 +22,12 @@ def train_model(model, dataset, num_epoch, silence=True):
 
   Returns
   -------
-  (float, float)
-    [0] Mean train loss.
-    [1] Mean train accuracy.
+  (np.array, np.array)
+    [0] Mean train loss per epoch.
+    [1] Mean train accuracy per epoch.
   """
-  losses = np.zeros(shape=(num_epoch, dataset.size))
-  accuracy = np.zeros(shape=(num_epoch, dataset.size))
+  losses = np.zeros(num_epoch)
+  accuracy = np.zeros(num_epoch)
   for epoch in range(num_epoch):
     curr_losses = np.zeros(shape=dataset.size)
     curr_accuracy = np.zeros(shape=dataset.size)
@@ -46,6 +46,6 @@ def train_model(model, dataset, num_epoch, silence=True):
 
           pbar.update(1)
           pbar.set_postfix(loss=curr_losses[i], accuracy=curr_accuracy[i])
-    losses[epoch] = curr_losses
-    accuracy[epoch] = curr_accuracy
+    losses[epoch] = np.mean(curr_losses)
+    accuracy[epoch] = np.mean(curr_accuracy)
   return losses, accuracy
