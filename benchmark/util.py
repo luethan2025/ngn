@@ -13,13 +13,13 @@ def plot_loss_and_acc(losses, accs, labels=None, figsize=(15,7)):
     ax.plot(loss, label=labels[idx] if labels else None)
   if labels:
     ax.legend()
-  ax.set_title("Loss over epochs")
+  ax.set_title("Loss over Epochs")
 
   ax = axarr[1]
   for idx, acc in enumerate(accs):
     ax.plot(acc, label=labels[idx] if labels else None)
   if labels:
     ax.legend()
-  ax.set_title("Accuracy over epochs")
+  ax.set_title("Accuracy over Epochs")
   plt.tight_layout()
   plt.show()
