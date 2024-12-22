@@ -14,6 +14,7 @@ def plot_loss_and_acc(losses, accs, labels=None, figsize=(15,7)):
   if labels:
     ax.legend()
   ax.set_title("Loss over Epochs")
+  ax.set_xticks(range(len(loss)))
 
   ax = axarr[1]
   for idx, acc in enumerate(accs):
@@ -21,5 +22,6 @@ def plot_loss_and_acc(losses, accs, labels=None, figsize=(15,7)):
   if labels:
     ax.legend()
   ax.set_title("Accuracy over Epochs")
+  ax.set_xticks(range(len(acc)))
   plt.tight_layout()
   plt.show()
