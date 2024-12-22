@@ -5,10 +5,11 @@ from .dataset import Dataset
 from .optim import SGD
 from .loss import categorical_cross_entropy
 from .trainer import train_model
+from .tester import test_model
 
 __all__ = [
   "Parameter", "Module", "SGD",
   "Dataset",
   "categorical_cross_entropy",
-  "train_model"
+  "train_model", "test_model"
 ]
