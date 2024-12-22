@@ -66,7 +66,7 @@ def get_dataset(num_points, split_ratio, batch_size, visualize=False):
 def get_baseline_model():
   from baseline import Model, Dense, SoftmaxCrossEntropy
   bn = Model([
-    Dense(in_dim=2, out_dim=2),
+    Dense(in_dim=2, out_dim=2)
   ], loss=SoftmaxCrossEntropy)
   del Model, Dense, SoftmaxCrossEntropy
   return bn
@@ -74,7 +74,7 @@ def get_baseline_model():
 def get_numeric_gradient_model():
   from numeric import Model, Dense, SoftmaxCrossEntropy
   ngn = Model([
-    Dense(in_dim=2, out_dim=2),
+    Dense(in_dim=2, out_dim=2)
   ], loss=SoftmaxCrossEntropy)
   del Model, Dense, SoftmaxCrossEntropy
   return ngn
