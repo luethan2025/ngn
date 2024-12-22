@@ -59,6 +59,7 @@ def get_dataset(num_points, split_ratio, batch_size, visualize=False):
     plt.scatter(x_two, y_two)
     plt.xticks(np.arange(-2, 3, step=1))
     plt.yticks(np.arange(-2, 3, step=1))
+    plt.gca().set_aspect('equal', adjustable='box')
     plt.show()
   return Dataset(X, y, batch=batch_size)
 
