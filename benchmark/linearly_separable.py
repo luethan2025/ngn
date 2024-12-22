@@ -99,6 +99,7 @@ def main():
   
   out = ""
   for i in range(opts.num_test_dataset):
+    np.random.seed(opts.random_seed + i + 1)
     out += f"Evaluating on test dataset {i + 1}:\n"
     test_dataset = get_dataset(opts.num_points, opts.split_ratio, opts.batch_size)
     loss_b, accuracy_b = test_model(bn, test_dataset)
