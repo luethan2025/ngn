@@ -8,7 +8,7 @@ import random
 from common.dataset import Dataset
 from common import train_model, test_model
 
-from util import plot_loss_and_acc
+from utils import plot_loss_and_acc
 
 def get_argparser():
   parser = argparse.ArgumentParser()
